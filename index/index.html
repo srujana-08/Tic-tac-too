@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="C:\Users\sruja\OneDrive\Desktop\index\index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #b4dfee;
+            /* Light blue background color */
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        .game-board {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border: 5px solid #333;
+            /* Outer border for the game board */
+        }
+        
+        .column {
+            display: flex;
+        }
+        
+        .cell {
+            width: 80px;
+            /* Increased size for better visibility */
+            height: 80px;
+            /* Increased size for better visibility */
+            border: 5px solid #333;
+            /* Thick border for each cell */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            /* Larger font size for better visibility */
+            cursor: pointer;
+        }
+        
+        #reset-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #timer {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div class="game-board">
+        <div class="column">
+            <div class="cell" id="cell-0"></div>
+            <div class="cell" id="cell-1"></div>
+            <div class="cell" id="cell-2"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell-3"></div>
+            <div class="cell" id="cell-4"></div>
+            <div class="cell" id="cell-5"></div>
+        </div>
+        <div class="column">
+            <div class="cell" id="cell-6"></div>
+            <div class="cell" id="cell-7"></div>
+            <div class="cell" id="cell-8"></div>
+        </div>
+    </div>
+    <button id="reset-button">Reset Game</button>
+    <div id="timer">Time: 0 seconds</div>
+    <script src="C:\Users\sruja\OneDrive\Desktop\index\index.js"></script>
+    <script>
+        let startTime;
+        let timerInterval;
+        let gameActive = true;
+
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(() => {
+                const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('timer').textContent = `Time: ${elapsedTime} seconds`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            document.getElementById('timer').textContent = 'Time: 0 seconds';
+        }
+
+        function checkWin() {
+            // Add your win condition check here
+            // If a player wins, call stopTimer() and alert the player
+            // Example:
+            const win = false; // Replace with actual win condition check
+            if (win) {
+                stopTimer();
+                const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                alert(`Player wins! Time taken: ${elapsedTime} seconds`);
+                gameActive = false;
+            }
+        }
+
+        document.getElementById('reset-button').addEventListener('click', () => {
+            // Reset game logic here
+            // For example, clear the game board and reset variables
+            resetTimer();
+            startTimer();
+            gameActive = true;
+        });
+
+        document.querySelectorAll('.cell').forEach(cell => {
+            cell.addEventListener('click', () => {
+                if (gameActive) {
+                    // Add your game logic here
+                    // Example: cell.textContent = 'X';
+
+                    // Check for win condition
+                    checkWin();
+                }
+            });
+        });
+
+        // Start the timer when the game loads
+        startTimer();
+    </script>
+</body>
+
+</html>
